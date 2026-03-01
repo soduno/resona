@@ -1,0 +1,7 @@
+/build/
+/build-resona/
+/.vs/
+*.user
+*.suo
+*.VC.db
+.DS_Store
