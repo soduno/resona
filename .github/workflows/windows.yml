@@ -1,0 +1,28 @@
+name: Build Flow DAW for Windows
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "CMakeLists.txt"
+      - "src/**"
+      - ".github/workflows/windows.yml"
+
+jobs:
+  build:
+    runs-on: windows-2025
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake -S . -B build -A x64
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Upload Flow
+        uses: actions/upload-artifact@v4
+        with:
+          name: Flow-Windows-x64
+          path: build/FlowDAW_artefacts/Release/**
+          if-no-files-found: error
